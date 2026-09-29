@@ -1,5 +1,4 @@
-# Packing-Auto-Pack-Database
-Packing Auto Pack Database/
+# Packing-Auto-Pack-Database/
 │
 ├── index.html
 ├── manifest.webmanifest
