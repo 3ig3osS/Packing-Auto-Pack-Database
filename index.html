@@ -193,7 +193,14 @@ v5.56.0 BUGFIX BUILD
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Packing Auto Pack Mobile v5.56.29</title>
+    <title>Packing Auto Pack v5.56.32</title>
+    <meta name="description" content="Packing Auto Pack v5.56.32 — ระบบ Packing List และ Customer Spec">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Packing Auto Pack">
+    <meta property="og:title" content="Packing Auto Pack v5.56.32">
+    <meta property="og:description" content="Packing List และ Customer Spec — เปิดใช้งานผ่านลิงก์">
+    <meta property="og:url" content="https://3ig3oss.github.io/Packing-Auto-Pack2026/">
+    <meta property="og:image" content="https://3ig3oss.github.io/Packing-Auto-Pack2026/icons/icon-512.png">
 
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#f5f7ff">
@@ -721,6 +728,363 @@ v5.56.0 BUGFIX BUILD
             line-height: 1;
         }
 
+        /* ═══════════════════════════════════════════════════════════════════════
+           v5.56.32: ธีม CYBERPUNK NEON (ธีมที่ 4 — กดปุ่มธีมที่หัวแอปเพื่อสลับ: สว่าง → มืด → อ่านง่าย → Cyberpunk)
+           - ทำงานเฉพาะตอน body มี data-theme="cyberpunk" เท่านั้น: ทุกกฎด้านล่างขึ้นต้นด้วย [data-theme="cyberpunk"]
+             ธีมเดิมทั้ง 3 ธีมไม่ถูกแตะ และไม่มีการเปลี่ยนตรรกะ/ข้อมูล/การซิงก์ใดๆ
+           - ตอนเปิดธีมนี้ JS จะใส่ data-theme="dark" ที่ <html> ด้วย เพื่อให้ตัวแปร dark: ของ Tailwind ทำงานเป็นฐานมืด
+             แล้วชั้นสไตล์นี้ทาสีนีออนทับ (ไม่ต้องแก้ tailwind.config)
+           - แพลตตา: cyan #00f0ff / magenta #ff2bd6 / yellow #fcee0a บนพื้นม่วงดำ #07020f
+           ═══════════════════════════════════════════════════════════════════════ */
+        [data-theme="cyberpunk"] {
+            --primary: #00f0ff;
+            --primary-light: #1a0b36;
+            --bg: radial-gradient(ellipse 85% 38% at 12% -4%, rgba(255,43,214,0.22), transparent 62%),
+                  radial-gradient(ellipse 75% 38% at 100% 2%, rgba(0,240,255,0.16), transparent 62%),
+                  linear-gradient(180deg, #07020f 0%, #0b0420 55%, #12062e 100%);
+            --card: rgba(14,6,32,0.88);
+            --text-main: #f3eeff;
+            --text-sub: #b3a6d9;
+            --border: rgba(0,240,255,0.32);
+            --shadow: 0 0 0 1px rgba(255,43,214,0.10), 0 10px 28px rgba(0,0,0,0.55), 0 0 20px rgba(0,240,255,0.10);
+            --premium-bg-sticky: linear-gradient(135deg, rgba(8,2,20,0.95), rgba(24,7,50,0.95));
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+        /* ลายตาราง + scanline จางๆ ทั้งหน้าจอ (ชั้นเดียว ไม่รับการแตะ ไม่ขยับ) */
+        [data-theme="cyberpunk"]::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(0,240,255,0.045) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,43,214,0.035) 1px, transparent 1px),
+                repeating-linear-gradient(0deg, rgba(0,0,0,0.14) 0, rgba(0,0,0,0.14) 1px, transparent 1px, transparent 3px);
+            background-size: 34px 34px, 34px 34px, auto;
+        }
+        [data-theme="cyberpunk"] ::selection { background: #ff2bd6; color: #07020f; }
+        [data-theme="cyberpunk"] ::placeholder { color: #7e70ad; }
+        [data-theme="cyberpunk"] ::-webkit-scrollbar { width: 6px; height: 6px; }
+        [data-theme="cyberpunk"] ::-webkit-scrollbar-thumb { background: linear-gradient(#00f0ff, #ff2bd6); border-radius: 6px; }
+        [data-theme="cyberpunk"] ::-webkit-scrollbar-track { background: rgba(14,6,32,0.6); }
+
+        /* สี Tailwind ที่ใช้ในแอป → โทนนีออน (class ที่ไม่มีคู่ dark: อยู่ก่อน, คู่ dark: ตามหลังเพื่อให้ชนะกัน) */
+        [data-theme="cyberpunk"] .bg-amber-100 { background-color: rgba(252,238,10,0.11); }
+        [data-theme="cyberpunk"] .bg-amber-50 { background-color: rgba(252,238,10,0.11); }
+        [data-theme="cyberpunk"] .bg-blue-100 { background-color: rgba(0,240,255,0.11); }
+        [data-theme="cyberpunk"] .bg-blue-50 { background-color: rgba(0,240,255,0.11); }
+        [data-theme="cyberpunk"] .bg-cyan-100 { background-color: rgba(0,240,255,0.11); }
+        [data-theme="cyberpunk"] .bg-emerald-100 { background-color: rgba(57,255,160,0.11); }
+        [data-theme="cyberpunk"] .bg-emerald-50 { background-color: rgba(57,255,160,0.11); }
+        [data-theme="cyberpunk"] .bg-emerald-950\/40 { background-color: rgba(57,255,160,0.14); }
+        [data-theme="cyberpunk"] .bg-indigo-50 { background-color: rgba(0,240,255,0.11); }
+        [data-theme="cyberpunk"] .bg-indigo-950\/40 { background-color: rgba(0,240,255,0.14); }
+        [data-theme="cyberpunk"] .bg-lime-100 { background-color: rgba(57,255,160,0.11); }
+        [data-theme="cyberpunk"] .bg-orange-100 { background-color: rgba(255,140,40,0.11); }
+        [data-theme="cyberpunk"] .bg-orange-50 { background-color: rgba(255,140,40,0.11); }
+        [data-theme="cyberpunk"] .bg-pink-50 { background-color: rgba(255,43,214,0.11); }
+        [data-theme="cyberpunk"] .bg-purple-50 { background-color: rgba(255,43,214,0.11); }
+        [data-theme="cyberpunk"] .bg-red-50 { background-color: rgba(255,42,109,0.11); }
+        [data-theme="cyberpunk"] .bg-rose-100 { background-color: rgba(255,42,109,0.11); }
+        [data-theme="cyberpunk"] .bg-rose-50 { background-color: rgba(255,42,109,0.11); }
+        [data-theme="cyberpunk"] .bg-slate-100 { background-color: rgba(26,11,54,.95); }
+        [data-theme="cyberpunk"] .bg-slate-200 { background-color: rgba(42,20,80,.95); }
+        [data-theme="cyberpunk"] .bg-slate-50 { background-color: rgba(21,10,48,.95); }
+        [data-theme="cyberpunk"] .bg-yellow-100 { background-color: rgba(252,238,10,0.11); }
+        [data-theme="cyberpunk"] .border-amber-100 { border-color: rgba(252,238,10,0.42); }
+        [data-theme="cyberpunk"] .border-amber-200 { border-color: rgba(252,238,10,0.42); }
+        [data-theme="cyberpunk"] .border-blue-100 { border-color: rgba(0,240,255,0.42); }
+        [data-theme="cyberpunk"] .border-cyan-300 { border-color: rgba(0,240,255,0.42); }
+        [data-theme="cyberpunk"] .border-emerald-100 { border-color: rgba(57,255,160,0.42); }
+        [data-theme="cyberpunk"] .border-emerald-900 { border-color: rgba(57,255,160,0.42); }
+        [data-theme="cyberpunk"] .border-indigo-100 { border-color: rgba(0,240,255,0.42); }
+        [data-theme="cyberpunk"] .border-indigo-900 { border-color: rgba(0,240,255,0.42); }
+        [data-theme="cyberpunk"] .border-lime-300 { border-color: rgba(57,255,160,0.42); }
+        [data-theme="cyberpunk"] .border-orange-100 { border-color: rgba(255,140,40,0.42); }
+        [data-theme="cyberpunk"] .border-pink-100 { border-color: rgba(255,43,214,0.42); }
+        [data-theme="cyberpunk"] .border-purple-100 { border-color: rgba(255,43,214,0.42); }
+        [data-theme="cyberpunk"] .border-red-100 { border-color: rgba(255,42,109,0.42); }
+        [data-theme="cyberpunk"] .border-rose-200 { border-color: rgba(255,42,109,0.42); }
+        [data-theme="cyberpunk"] .border-rose-900\/50 { border-color: rgba(255,42,109,0.42); }
+        [data-theme="cyberpunk"] .border-slate-100 { border-color: rgba(0,240,255,.28); }
+        [data-theme="cyberpunk"] .border-slate-200 { border-color: rgba(0,240,255,.28); }
+        [data-theme="cyberpunk"] .border-slate-200\/70 { border-color: rgba(0,240,255,.28); }
+        [data-theme="cyberpunk"] .border-slate-300 { border-color: rgba(0,240,255,.28); }
+        [data-theme="cyberpunk"] .border-yellow-300 { border-color: rgba(252,238,10,0.42); }
+        [data-theme="cyberpunk"] .text-amber-600 { color: #ffe94a; }
+        [data-theme="cyberpunk"] .text-amber-700 { color: #ffe94a; }
+        [data-theme="cyberpunk"] .text-amber-800 { color: #ffe94a; }
+        [data-theme="cyberpunk"] .text-blue-600 { color: #22e8ff; }
+        [data-theme="cyberpunk"] .text-cyan-700 { color: #22e8ff; }
+        [data-theme="cyberpunk"] .text-emerald-400 { color: #39ffa0; }
+        [data-theme="cyberpunk"] .text-emerald-500 { color: #39ffa0; }
+        [data-theme="cyberpunk"] .text-emerald-600 { color: #39ffa0; }
+        [data-theme="cyberpunk"] .text-fuchsia-600 { color: #ff5ce1; }
+        [data-theme="cyberpunk"] .text-indigo-400 { color: #22e8ff; }
+        [data-theme="cyberpunk"] .text-indigo-500 { color: #22e8ff; }
+        [data-theme="cyberpunk"] .text-indigo-600 { color: #22e8ff; }
+        [data-theme="cyberpunk"] .text-lime-700 { color: #39ffa0; }
+        [data-theme="cyberpunk"] .text-orange-500 { color: #ff9e3d; }
+        [data-theme="cyberpunk"] .text-orange-600 { color: #ff9e3d; }
+        [data-theme="cyberpunk"] .text-pink-600 { color: #ff5ce1; }
+        [data-theme="cyberpunk"] .text-purple-600 { color: #ff5ce1; }
+        [data-theme="cyberpunk"] .text-red-600 { color: #ff5c8a; }
+        [data-theme="cyberpunk"] .text-rose-500 { color: #ff5c8a; }
+        [data-theme="cyberpunk"] .text-rose-600 { color: #ff5c8a; }
+        [data-theme="cyberpunk"] .text-sky-500 { color: #22e8ff; }
+        [data-theme="cyberpunk"] .text-slate-300 { color: #7e70ad; }
+        [data-theme="cyberpunk"] .text-slate-400 { color: #9a8dc4; }
+        [data-theme="cyberpunk"] .text-slate-400\/300 { color: #9a8dc4; }
+        [data-theme="cyberpunk"] .text-slate-500 { color: #a99ccf; }
+        [data-theme="cyberpunk"] .text-slate-600 { color: #bfb3e3; }
+        [data-theme="cyberpunk"] .text-slate-700 { color: #d4c9f5; }
+        [data-theme="cyberpunk"] .text-slate-800 { color: #e6defc; }
+        [data-theme="cyberpunk"] .text-slate-900 { color: #f3eeff; }
+        [data-theme="cyberpunk"] .text-yellow-800 { color: #ffe94a; }
+        [data-theme="cyberpunk"] .dark\:\!bg-emerald-950\/40 { background-color: rgba(57,255,160,0.14) !important; }
+        [data-theme="cyberpunk"] .dark\:\!bg-indigo-950\/40 { background-color: rgba(0,240,255,0.14) !important; }
+        [data-theme="cyberpunk"] .dark\:\!border-emerald-900 { border-color: rgba(57,255,160,0.42) !important; }
+        [data-theme="cyberpunk"] .dark\:\!border-indigo-900 { border-color: rgba(0,240,255,0.42) !important; }
+        [data-theme="cyberpunk"] .dark\:\!border-rose-900\/50 { border-color: rgba(255,42,109,0.42) !important; }
+        [data-theme="cyberpunk"] .dark\:\!text-emerald-400 { color: #39ffa0 !important; }
+        [data-theme="cyberpunk"] .dark\:\!text-indigo-400 { color: #22e8ff !important; }
+        [data-theme="cyberpunk"] .dark\:bg-amber-950\/30 { background-color: rgba(252,238,10,0.14); }
+        [data-theme="cyberpunk"] .dark\:bg-amber-950\/40 { background-color: rgba(252,238,10,0.14); }
+        [data-theme="cyberpunk"] .dark\:bg-amber-950\/50 { background-color: rgba(252,238,10,0.14); }
+        [data-theme="cyberpunk"] .dark\:bg-blue-950\/40 { background-color: rgba(0,240,255,0.14); }
+        [data-theme="cyberpunk"] .dark\:bg-blue-950\/50 { background-color: rgba(0,240,255,0.14); }
+        [data-theme="cyberpunk"] .dark\:bg-emerald-950\/40 { background-color: rgba(57,255,160,0.14); }
+        [data-theme="cyberpunk"] .dark\:bg-emerald-950\/50 { background-color: rgba(57,255,160,0.14); }
+        [data-theme="cyberpunk"] .dark\:bg-indigo-950\/40 { background-color: rgba(0,240,255,0.14); }
+        [data-theme="cyberpunk"] .dark\:bg-orange-950\/30 { background-color: rgba(255,140,40,0.14); }
+        [data-theme="cyberpunk"] .dark\:bg-orange-950\/40 { background-color: rgba(255,140,40,0.14); }
+        [data-theme="cyberpunk"] .dark\:bg-orange-950\/50 { background-color: rgba(255,140,40,0.14); }
+        [data-theme="cyberpunk"] .dark\:bg-pink-950\/40 { background-color: rgba(255,43,214,0.14); }
+        [data-theme="cyberpunk"] .dark\:bg-purple-950\/30 { background-color: rgba(255,43,214,0.14); }
+        [data-theme="cyberpunk"] .dark\:bg-purple-950\/40 { background-color: rgba(255,43,214,0.14); }
+        [data-theme="cyberpunk"] .dark\:bg-red-950\/20 { background-color: rgba(255,42,109,0.14); }
+        [data-theme="cyberpunk"] .dark\:bg-red-950\/40 { background-color: rgba(255,42,109,0.14); }
+        [data-theme="cyberpunk"] .dark\:bg-rose-950\/30 { background-color: rgba(255,42,109,0.14); }
+        [data-theme="cyberpunk"] .dark\:bg-rose-950\/40 { background-color: rgba(255,42,109,0.14); }
+        [data-theme="cyberpunk"] .dark\:bg-rose-950\/50 { background-color: rgba(255,42,109,0.14); }
+        [data-theme="cyberpunk"] .dark\:bg-slate-600 { background-color: rgba(58,29,110,1); }
+        [data-theme="cyberpunk"] .dark\:bg-slate-700 { background-color: rgba(42,20,80,1); }
+        [data-theme="cyberpunk"] .dark\:bg-slate-800 { background-color: rgba(26,11,54,1); }
+        [data-theme="cyberpunk"] .dark\:bg-slate-800\/60 { background-color: rgba(26,11,54,0.6); }
+        [data-theme="cyberpunk"] .dark\:bg-slate-800\/80 { background-color: rgba(26,11,54,0.8); }
+        [data-theme="cyberpunk"] .dark\:bg-slate-900 { background-color: rgba(14,6,32,1); }
+        [data-theme="cyberpunk"] .dark\:bg-slate-900\/90 { background-color: rgba(14,6,32,0.9); }
+        [data-theme="cyberpunk"] .dark\:bg-slate-950\/70 { background-color: rgba(7,2,15,0.7); }
+        [data-theme="cyberpunk"] .dark\:bg-slate-950\/75 { background-color: rgba(7,2,15,0.75); }
+        [data-theme="cyberpunk"] .dark\:bg-yellow-950\/40 { background-color: rgba(252,238,10,0.14); }
+        [data-theme="cyberpunk"] .dark\:border-amber-900\/40 { border-color: rgba(252,238,10,0.42); }
+        [data-theme="cyberpunk"] .dark\:border-amber-900\/50 { border-color: rgba(252,238,10,0.42); }
+        [data-theme="cyberpunk"] .dark\:border-blue-900\/40 { border-color: rgba(0,240,255,0.42); }
+        [data-theme="cyberpunk"] .dark\:border-emerald-900\/40 { border-color: rgba(57,255,160,0.42); }
+        [data-theme="cyberpunk"] .dark\:border-orange-900\/40 { border-color: rgba(255,140,40,0.42); }
+        [data-theme="cyberpunk"] .dark\:border-pink-900\/40 { border-color: rgba(255,43,214,0.42); }
+        [data-theme="cyberpunk"] .dark\:border-purple-900\/40 { border-color: rgba(255,43,214,0.42); }
+        [data-theme="cyberpunk"] .dark\:border-red-900\/40 { border-color: rgba(255,42,109,0.42); }
+        [data-theme="cyberpunk"] .dark\:border-slate-700 { border-color: rgba(0,240,255,.32); }
+        [data-theme="cyberpunk"] .dark\:border-slate-700\/70 { border-color: rgba(0,240,255,.32); }
+        [data-theme="cyberpunk"] .dark\:border-slate-800 { border-color: rgba(0,240,255,.22); }
+        [data-theme="cyberpunk"] .dark\:border-slate-800\/80 { border-color: rgba(0,240,255,.22); }
+        [data-theme="cyberpunk"] .dark\:border-slate-950 { border-color: rgba(7,2,15,.9); }
+        [data-theme="cyberpunk"] .dark\:divide-slate-700 > :not([hidden]) ~ :not([hidden]) { border-color: rgba(0,240,255,.32); }
+        [data-theme="cyberpunk"] .dark\:divide-slate-800 > :not([hidden]) ~ :not([hidden]) { border-color: rgba(0,240,255,.22); }
+        [data-theme="cyberpunk"] .dark\:focus\:bg-slate-900:focus { background-color: rgba(14,6,32,1); }
+        [data-theme="cyberpunk"] .dark\:hover\:bg-indigo-950\/30:hover { background-color: rgba(0,240,255,0.14); }
+        [data-theme="cyberpunk"] .dark\:hover\:text-indigo-400:hover { color: #22e8ff; }
+        [data-theme="cyberpunk"] .dark\:text-amber-300 { color: #ffe94a; }
+        [data-theme="cyberpunk"] .dark\:text-amber-400 { color: #ffe94a; }
+        [data-theme="cyberpunk"] .dark\:text-amber-500 { color: #ffe94a; }
+        [data-theme="cyberpunk"] .dark\:text-blue-400 { color: #22e8ff; }
+        [data-theme="cyberpunk"] .dark\:text-emerald-400 { color: #39ffa0; }
+        [data-theme="cyberpunk"] .dark\:text-fuchsia-400 { color: #ff5ce1; }
+        [data-theme="cyberpunk"] .dark\:text-indigo-400 { color: #22e8ff; }
+        [data-theme="cyberpunk"] .dark\:text-orange-400 { color: #ff9e3d; }
+        [data-theme="cyberpunk"] .dark\:text-pink-400 { color: #ff5ce1; }
+        [data-theme="cyberpunk"] .dark\:text-purple-400 { color: #ff5ce1; }
+        [data-theme="cyberpunk"] .dark\:text-red-400 { color: #ff5c8a; }
+        [data-theme="cyberpunk"] .dark\:text-rose-400 { color: #ff5c8a; }
+        [data-theme="cyberpunk"] .dark\:text-sky-400 { color: #22e8ff; }
+        [data-theme="cyberpunk"] .dark\:text-slate-200 { color: #e6defc; }
+        [data-theme="cyberpunk"] .dark\:text-slate-300 { color: #d4c9f5; }
+        [data-theme="cyberpunk"] .dark\:text-slate-400 { color: #b3a6d9; }
+        [data-theme="cyberpunk"] .dark\:text-slate-500 { color: #9a8dc4; }
+        [data-theme="cyberpunk"] .dark\:text-slate-600 { color: #7e70ad; }
+        [data-theme="cyberpunk"] .dark\:text-slate-700 { color: #6a5c99; }
+        [data-theme="cyberpunk"] .accent-indigo-600 { accent-color: #00f0ff; }
+        [data-theme="cyberpunk"] .accent-amber-500 { accent-color: #fcee0a; }
+        [data-theme="cyberpunk"] .accent-orange-500 { accent-color: #ff9e3d; }
+
+        /* แถบบน / แถบล่าง / การ์ด / ชิป */
+        [data-theme="cyberpunk"] .glass-panel {
+            background: linear-gradient(135deg, rgba(10,3,24,0.92), rgba(26,8,54,0.84));
+            border: 1px solid rgba(0,240,255,0.38);
+            box-shadow: 0 0 18px rgba(0,240,255,0.14), 0 14px 34px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+        [data-theme="cyberpunk"] #header {
+            border-bottom: 1px solid rgba(0,240,255,0.6);
+            box-shadow: 0 1px 0 rgba(255,43,214,0.55), 0 8px 26px rgba(0,240,255,0.18);
+        }
+        [data-theme="cyberpunk"] #bottomNav { background: rgba(10,3,24,0.88); }
+        [data-theme="cyberpunk"] .premium-ring::after {
+            background: linear-gradient(135deg, rgba(0,240,255,0.75), rgba(255,43,214,0.6) 55%, rgba(252,238,10,0.4));
+        }
+        [data-theme="cyberpunk"] .mobile-card::before {
+            background: linear-gradient(135deg, rgba(0,240,255,0.07), rgba(255,43,214,0.05), rgba(255,255,255,0));
+        }
+        [data-theme="cyberpunk"] .mobile-card:hover {
+            box-shadow: 0 0 0 1px rgba(255,43,214,0.3), 0 16px 40px rgba(0,0,0,0.6), 0 0 28px rgba(0,240,255,0.25);
+        }
+        [data-theme="cyberpunk"] .premium-chip {
+            background: rgba(10,3,24,0.9);
+            border-color: rgba(0,240,255,0.42);
+            box-shadow: 0 0 12px rgba(0,240,255,0.12), inset 0 0 10px rgba(255,43,214,0.06);
+        }
+        [data-theme="cyberpunk"] #specCardContainer > div {
+            box-shadow: 0 0 0 1px rgba(255,43,214,0.14), 0 8px 22px rgba(0,0,0,0.45), 0 0 16px rgba(0,240,255,0.10);
+        }
+        [data-theme="cyberpunk"] .rounded-t-3xl {
+            border-top: 1px solid rgba(0,240,255,0.7);
+            box-shadow: 0 -10px 34px rgba(0,240,255,0.22), 0 -1px 0 rgba(255,43,214,0.7);
+        }
+        [data-theme="cyberpunk"] .detail-row:hover { background: rgba(0,240,255,0.07); }
+        [data-theme="cyberpunk"] .ripple { background: rgba(0,240,255,0.2); }
+
+        /* ปุ่มและแบนเนอร์ไล่สี: พื้นนีออนสว่าง + ตัวอักษรม่วงดำ (คอนทราสต์สูง) */
+        [data-theme="cyberpunk"] .bg-gradient-to-r.from-indigo-600.text-white {
+            background-image: linear-gradient(90deg, #00e5ff 0%, #b04dff 55%, #ff2bd6 100%);
+            color: #10002b;
+            box-shadow: 0 0 12px rgba(0,240,255,0.45), 0 0 22px rgba(255,43,214,0.28);
+        }
+        [data-theme="cyberpunk"] .bg-gradient-to-r.from-emerald-500.text-white {
+            background-image: linear-gradient(90deg, #00ff9c, #00e5ff);
+            color: #00160f;
+            box-shadow: 0 0 12px rgba(57,255,160,0.45);
+        }
+        [data-theme="cyberpunk"] .bg-gradient-to-r.from-rose-600.text-white {
+            background-image: linear-gradient(90deg, #ff2a6d, #ff7a1a);
+            color: #1a0008;
+            box-shadow: 0 0 12px rgba(255,42,109,0.5);
+        }
+        /* ตัวหนังสือไล่สี (ชื่อแอป, PART NO บนการ์ด) */
+        [data-theme="cyberpunk"] .bg-clip-text.bg-gradient-to-r {
+            background-image: linear-gradient(90deg, #00f0ff 0%, #c77dff 55%, #ff5ce1 100%);
+            filter: drop-shadow(0 0 6px rgba(0,240,255,0.45));
+        }
+        /* แท็บหลัก / ปุ่มเรียง / ปุ่มค้นหา */
+        [data-theme="cyberpunk"] .main-tab-btn {
+            background: rgba(14,6,32,0.9);
+            color: #a99ccf;
+            border: 1px solid rgba(0,240,255,0.28);
+        }
+        [data-theme="cyberpunk"] .main-tab-btn.main-tab-active {
+            background: linear-gradient(90deg, #00e5ff, #b04dff 60%, #ff2bd6) !important;
+            color: #10002b !important;
+            border-color: transparent;
+            box-shadow: 0 0 14px rgba(0,240,255,0.5), 0 0 26px rgba(255,43,214,0.3);
+        }
+        [data-theme="cyberpunk"] .sort-btn.sort-btn-active {
+            background: #00f0ff !important;
+            color: #07020f !important;
+            box-shadow: 0 0 12px rgba(0,240,255,0.6);
+        }
+        [data-theme="cyberpunk"] #searchToggleBtn.search-toggle-active {
+            background-color: #00f0ff !important;
+            color: #07020f !important;
+            box-shadow: 0 0 12px rgba(0,240,255,0.6);
+        }
+        [data-theme="cyberpunk"] #header .flex.gap-2 > button:not(.bg-gradient-to-r) {
+            background-color: rgba(26,11,54,0.9);
+            color: #00f0ff;
+            border: 1px solid rgba(0,240,255,0.35);
+            box-shadow: 0 0 10px rgba(0,240,255,0.18);
+        }
+        [data-theme="cyberpunk"] #bottomNav button.from-slate-700 {
+            background-image: none;
+            background-color: rgba(14,6,32,0.95);
+            border: 1px solid #00f0ff;
+            color: #00f0ff;
+            letter-spacing: 0.12em;
+            text-shadow: 0 0 8px rgba(0,240,255,0.7);
+            box-shadow: 0 0 14px rgba(0,240,255,0.4), inset 0 0 12px rgba(0,240,255,0.12);
+        }
+        /* ปุ่มสีทึบ (Export / Import / ยืนยัน ฯลฯ) → ปุ่มกรอบนีออนโปร่ง */
+        [data-theme="cyberpunk"] button.bg-indigo-600,
+        [data-theme="cyberpunk"] button.bg-sky-600,
+        [data-theme="cyberpunk"] button.bg-blue-600 {
+            background-color: rgba(0,240,255,0.12); color: #00f0ff; border: 1px solid #00f0ff; box-shadow: 0 0 12px rgba(0,240,255,0.35);
+        }
+        [data-theme="cyberpunk"] button.bg-violet-600 {
+            background-color: rgba(255,43,214,0.12); color: #ff5ce1; border: 1px solid #ff2bd6; box-shadow: 0 0 12px rgba(255,43,214,0.35);
+        }
+        [data-theme="cyberpunk"] button.bg-emerald-600,
+        [data-theme="cyberpunk"] button.bg-teal-600,
+        [data-theme="cyberpunk"] button.bg-green-600 {
+            background-color: rgba(57,255,160,0.12); color: #39ffa0; border: 1px solid #39ffa0; box-shadow: 0 0 12px rgba(57,255,160,0.35);
+        }
+        [data-theme="cyberpunk"] button.bg-rose-500,
+        [data-theme="cyberpunk"] button.bg-red-600 {
+            background-color: rgba(255,42,109,0.14); color: #ff5c8a; border: 1px solid #ff2a6d; box-shadow: 0 0 12px rgba(255,42,109,0.4);
+        }
+        [data-theme="cyberpunk"] button.bg-amber-500 {
+            background-color: rgba(252,238,10,0.12); color: #ffe94a; border: 1px solid #fcee0a; box-shadow: 0 0 12px rgba(252,238,10,0.35);
+        }
+
+        /* ป้ายสเปก / ชิป / Toast / แบนเนอร์เตือนสำรองข้อมูล */
+        [data-theme="cyberpunk"] .spec-badge {
+            background: rgba(26,11,54,0.92);
+            color: #efe9ff;
+            border-color: rgba(0,240,255,0.35);
+            box-shadow: inset 0 0 10px rgba(0,240,255,0.06);
+        }
+        [data-theme="cyberpunk"] .spec-badge.spec-badge-on {
+            background: rgba(252,238,10,0.14);
+            border-color: #fcee0a;
+            box-shadow: 0 0 10px rgba(252,238,10,0.28), inset 0 0 10px rgba(252,238,10,0.08);
+        }
+        [data-theme="cyberpunk"] .spec-badge.spec-badge-on > span:first-child { color: #fff59a; }
+        [data-theme="cyberpunk"] .spec-badge.spec-badge-on .spec-on-text { color: #fff59a; }
+        [data-theme="cyberpunk"] .spec-chip-on {
+            background-color: rgba(252,238,10,0.14);
+            color: #fff59a;
+            border: 1px solid rgba(252,238,10,0.5);
+        }
+        [data-theme="cyberpunk"] #toast {
+            background: #0e0620;
+            color: #00f0ff;
+            border: 1px solid #00f0ff;
+            box-shadow: 0 0 16px rgba(0,240,255,0.5), 0 8px 24px rgba(0,0,0,0.5);
+        }
+        [data-theme="cyberpunk"] #backupBannerInner {
+            background: linear-gradient(135deg, #b0107f 0%, #5b21b6 100%);
+            border: 1px solid #ff2bd6;
+            box-shadow: 0 0 16px rgba(255,43,214,0.5);
+        }
+
+        /* ช่องกรอก */
+        [data-theme="cyberpunk"] .input-style:focus {
+            border-color: #00f0ff;
+            box-shadow: 0 0 0 3px rgba(0,240,255,0.16), 0 0 14px rgba(0,240,255,0.35);
+        }
+        [data-theme="cyberpunk"] input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):focus,
+        [data-theme="cyberpunk"] textarea:focus,
+        [data-theme="cyberpunk"] select:focus {
+            background-color: #14082e;
+            border-color: #00f0ff;
+        }
+        [data-theme="cyberpunk"] #searchInput:focus {
+            box-shadow: 0 0 0 3px rgba(0,240,255,0.16), 0 0 14px rgba(0,240,255,0.35) !important;
+        }
+
+        /* โหมดประหยัดพลัง: ตัดเอฟเฟกต์ glow ที่กินแรงออก (ไม่กระทบสี/ความชัดเจน) */
+        .lite-mode [data-theme="cyberpunk"] .bg-clip-text.bg-gradient-to-r { filter: none; }
+        .lite-mode [data-theme="cyberpunk"] .mobile-card:hover { box-shadow: var(--shadow); }
+
     </style>
 
 </head>
@@ -757,7 +1121,7 @@ v5.56.0 BUGFIX BUILD
         <div id="searchWrapper" style="max-height:0;opacity:0;overflow:hidden;transition:max-height 0.35s cubic-bezier(0.16,1,0.3,1),opacity 0.25s ease,margin 0.25s ease;">
             <div class="relative" style="padding-top:4px;">
                 <i class="fas fa-search absolute left-4 text-slate-400 pointer-events-none" style="top:50%;transform:translateY(-50%);margin-top:2px;"></i>
-                <input type="text" id="searchInput" oninput="filterTable()" placeholder="ค้นหาด้วย Part No หรือ Customer..."
+                <input type="text" id="searchInput" oninput="filterTable()" placeholder="ค้นหา Part No, Customer, CUST P/N หรือ Note..."
                     class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl py-2.5 pl-11 pr-10 text-slate-900 dark:text-white font-medium placeholder-slate-400 outline-none text-sm transition-all focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900">
                 <button id="searchClearBtn" onclick="clearSearch()" class="absolute right-3 text-slate-400 hidden" style="top:50%;transform:translateY(-50%);margin-top:2px;">
                     <i class="fas fa-times-circle text-base"></i>
@@ -1186,7 +1550,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         let formDirty = false;
 
         // ─── App Version (แก้ที่นี่จุดเดียวเมื่ออัพเดท) ───────────────────────
-        const APP_VERSION = 'v5.56.29';
+        const APP_VERSION = 'v5.56.32';
 
         // v5.56.4: โหมดประหยัดพลัง — ผู้ใช้สลับเองได้ใน Settings, และเดาให้อัตโนมัติตอนเปิดแอปครั้งแรก
         // จากสัญญาณสเปกเครื่องเท่าที่เบราว์เซอร์ยอมบอก (ไม่รองรับทุกเครื่อง/ทุกเบราว์เซอร์ โดยเฉพาะ iOS Safari
@@ -1912,6 +2276,8 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
 
         function applyThemeState(theme, icon) {
             const body = document.body;
+            // v5.56.32: ธีม Cyberpunk ใช้ฐานมืด — ใส่ data-theme="dark" ที่ <html> ให้ dark: ของ Tailwind ทำงาน; ธีมอื่นเคลียร์ทิ้งเสมอ (พฤติกรรมเดิมไม่เปลี่ยน)
+            document.documentElement.removeAttribute('data-theme');
             if (theme === 'dark') {
                 body.setAttribute('data-theme', 'dark');
                 document.documentElement.style.fontSize = '';
@@ -1919,6 +2285,11 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
             } else if (theme === 'reading') {
                 body.setAttribute('data-theme', 'reading');
                 document.documentElement.style.fontSize = '106%';
+                if (icon) icon.className = 'fas fa-bolt text-lg';
+            } else if (theme === 'cyberpunk') {
+                body.setAttribute('data-theme', 'cyberpunk');
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.documentElement.style.fontSize = '';
                 if (icon) icon.className = 'fas fa-sun text-lg';
             } else {
                 body.removeAttribute('data-theme');
@@ -1927,7 +2298,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
             }
             localStorage.setItem('packing_theme', theme);
             try {
-                const tc = {dark: '#0f172a', reading: '#f7f1e0'}[theme] || '#f5f7ff';
+                const tc = {dark: '#0f172a', reading: '#f7f1e0', cyberpunk: '#07020f'}[theme] || '#f5f7ff';
                 let m = document.querySelector('meta[name="theme-color"]');
                 if (!m) { m = document.createElement('meta'); m.name = 'theme-color'; document.head.appendChild(m); }
                 m.setAttribute('content', tc);
@@ -1941,7 +2312,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
             clearTimeout(window._themeTransTimer);
             window._themeTransTimer = setTimeout(() => html.classList.remove('theme-transitioning'), 400);
             const current = document.body.getAttribute('data-theme') || 'light';
-            const next = current === 'light' ? 'dark' : (current === 'dark' ? 'reading' : 'light');
+            const next = current === 'light' ? 'dark' : (current === 'dark' ? 'reading' : (current === 'reading' ? 'cyberpunk' : 'light'));
             applyThemeState(next, icon);
         }
 
@@ -2338,6 +2709,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
                 const query = document.getElementById('searchInput').value;
                 lastQuery   = cleanText(query);
                 const qLow  = lastQuery.toLowerCase();
+                const qNorm = qLow.replace(/[^a-z0-9ก-๙]/g, '');
                 document.getElementById('searchClearBtn').classList.toggle('hidden', !lastQuery);
                 // v5.56.0: ขยายค้นหาให้ครอบคลุม CustPN, Note, NoteExtra ด้วย (เดิมค้นได้แค่ Part No กับ Customer)
                 const filtered = lastQuery
@@ -2345,6 +2717,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
                         cleanText(item['Part No']).toLowerCase().includes(qLow) ||
                         cleanText(item['Customer']).toLowerCase().includes(qLow) ||
                         cleanText(item['CustPN']).toLowerCase().includes(qLow) ||
+                        (qNorm && cleanText(item['CustPN']).toLowerCase().replace(/[^a-z0-9ก-๙]/g, '').includes(qNorm)) || // v5.56.32: พิมพ์ CUST P/N ไม่ใส่ขีด/ช่องว่างก็เจอ (เช่น CP8841 ↔ CP-8841)
                         cleanText(item['Note']).toLowerCase().includes(qLow) ||
                         cleanText(item['NoteExtra']).toLowerCase().includes(qLow))
                     : packingData;
@@ -3639,7 +4012,7 @@ backupBeforeOverwrite('นำเข้า CSV');
 
 
         window.onload = () => {
-            document.title = 'Packing Auto Pack Mobile ' + APP_VERSION; // v5.56.0 #8: version consistency — title ตาม APP_VERSION เสมอ ไม่ต้องแก้มือ
+            document.title = 'Packing Auto Pack ' + APP_VERSION; // v5.56.0 #8: version consistency — title ตาม APP_VERSION เสมอ ไม่ต้องแก้มือ
             initTheme();
             renderTable();
             checkBackupReminder();
