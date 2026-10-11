@@ -1,4 +1,4 @@
-const CACHE_NAME='packing-auto-pack-v5-56-57-shell';
+const CACHE_NAME='packing-auto-pack-v5-56-58-shell';
 // v5.56.57: Tailwind/Font Awesome/Sarabun เป็นไฟล์ในแอปเองทั้งหมด (assets/) — ไม่พึ่ง CDN ภายนอกอีก จึงเปิดออฟไลน์ครั้งแรกได้สไตล์ครบ
 // v5.56.56: cache key เปลี่ยนเพื่อรับ shell รุ่นใหม่ — v5.56.52: cache key เปลี่ยนเพื่อรับ shell รุ่นใหม่ — v5.56.51: cache key เปลี่ยนเพื่อรับ shell รุ่นใหม่ — v5.56.50: cache key เปลี่ยนเพื่อรับ shell รุ่นใหม่ — v5.56.49: cache key เปลี่ยนเพื่อรับ shell รุ่นใหม่ — v5.56.48: cache key เปลี่ยนเพื่อรับ shell รุ่นใหม่ — v5.56.47: cache key เปลี่ยนเพื่อรับ shell รุ่นใหม่ — v5.56.46: cache key เปลี่ยนเพื่อรับ shell รุ่นใหม่ — v5.56.45: เปลี่ยน cache key (v5.56.44 ลืมเปลี่ยนชื่อ) — v5.56.44: เปลี่ยน cache key เพื่อบังคับ client รับ shell รุ่นใหม่และล้าง cache รุ่นเก่า
 const APP_SHELL='./index.html';
