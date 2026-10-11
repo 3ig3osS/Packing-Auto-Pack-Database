@@ -193,11 +193,11 @@ v5.56.0 BUGFIX BUILD
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Packing Auto Pack v5.56.56</title>
-    <meta name="description" content="Packing Auto Pack v5.56.56 — ระบบ Packing List และ Customer Spec">
+    <title>Packing Auto Pack v5.56.57</title>
+    <meta name="description" content="Packing Auto Pack v5.56.57 — ระบบ Packing List และ Customer Spec">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Packing Auto Pack">
-    <meta property="og:title" content="Packing Auto Pack v5.56.56">
+    <meta property="og:title" content="Packing Auto Pack v5.56.57">
     <meta property="og:description" content="Packing List และ Customer Spec — เปิดใช้งานผ่านลิงก์">
     <meta property="og:url" content="https://3ig3oss.github.io/Packing-Auto-Pack2026/">
     <meta property="og:image" content="https://3ig3oss.github.io/Packing-Auto-Pack2026/packing-logo.png">
@@ -212,18 +212,10 @@ v5.56.0 BUGFIX BUILD
     <link rel="manifest" href="./manifest.webmanifest">
     <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        // v5.56.0: ผูกโหมด dark: ของ Tailwind เข้ากับ data-theme ของแอปเอง (ปุ่มธีมที่กดในแอป)
-        // แทนที่จะยึดตามค่า OS/เบราว์เซอร์ (prefers-color-scheme) แบบเดิม — เดิมนี่คือสาเหตุที่ตัวหนังสือ
-        // อาจมองไม่ชัด/มองไม่เห็นได้ เมื่อโหมด OS กับธีมที่เลือกในแอปไม่ตรงกัน (เช่น เลือก Light ในแอป
-        // แต่มือถือตั้ง OS เป็น Dark ไว้ — class dark: จะโดน trigger ทับสีจาก CSS variable ของธีม Light)
-        tailwind.config = { darkMode: ['selector', '[data-theme="dark"]'] };
-    </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <link rel="stylesheet" href="./assets/fontawesome.css">
+    <link rel="stylesheet" href="./assets/sarabun.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap');
-        
+                
         :root {
             --primary: #6366f1;
             --primary-light: #eef2ff;
@@ -1167,6 +1159,8 @@ v5.56.0 BUGFIX BUILD
         }
 </style>
 
+    <!-- v5.56.57: Tailwind คอมไพล์ไว้ล่วงหน้า (แทน cdn.tailwindcss.com) วางท้าย head เพื่อให้ลำดับ CSS เหมือนเดิม -->
+    <link rel="stylesheet" href="./assets/tailwind.css">
 </head>
 <body class="pb-16">
     <!-- Header ดีไซน์คลีน โมเดิร์น ไม่ทึบ -->
@@ -1633,7 +1627,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         let formDirty = false;
 
         // ─── App Version (แก้ที่นี่จุดเดียวเมื่ออัพเดท) ───────────────────────
-        const APP_VERSION = 'v5.56.56';
+        const APP_VERSION = 'v5.56.57';
 
         // v5.56.4: โหมดประหยัดพลัง — ผู้ใช้สลับเองได้ใน Settings, และเดาให้อัตโนมัติตอนเปิดแอปครั้งแรก
         // จากสัญญาณสเปกเครื่องเท่าที่เบราว์เซอร์ยอมบอก (ไม่รองรับทุกเครื่อง/ทุกเบราว์เซอร์ โดยเฉพาะ iOS Safari
@@ -3400,8 +3394,11 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
             } catch (e) { /* ไม่ให้ error ตรงนี้กระทบการใช้งานหลัก */ }
         });
         window.addEventListener('pagehide', function () {
-            localStorage.removeItem(EDIT_UNLOCK_KEY);
-            localStorage.removeItem(SPEC_UNLOCK_KEY);
+            // v5.56.57: แก้บั๊ก — เดิมลบจาก localStorage ทั้งที่ค่าอยู่ใน sessionStorage และไม่รีเซ็ตตัวแปรในหน่วยความจำ ทำให้ไม่ล็อกจริง
+            try { sessionStorage.removeItem(EDIT_UNLOCK_KEY); sessionStorage.removeItem(SPEC_UNLOCK_KEY); } catch (e) {}
+            try { localStorage.removeItem(EDIT_UNLOCK_KEY); localStorage.removeItem(SPEC_UNLOCK_KEY); } catch (e) {}
+            editUnlocked = false; specUnlocked = false;
+            try { if (typeof renderLockStatus === 'function') renderLockStatus(); } catch (e) {}
         });
 
         // v5.56.0 #2: เรียกแทน syncToGoogleSheets(true) ตรงๆ ใน saveData() — debounce ไว้ก่อนค่อยซิงค์จริง
@@ -3611,37 +3608,6 @@ backupBeforeOverwrite('โหลดจาก Google Sheets');
         // โดยใช้เวลาซิงค์ล่าสุด (lastSyncAt) เป็นเกณฑ์ตัดสิน — แถวไหนในเครื่องที่ไม่ได้แก้ไขมาตั้งแต่ก่อนซิงค์ครั้งล่าสุด
         // (ไม่ใช่ของใหม่ที่เพิ่งเพิ่ม/แก้ในเครื่องนี้) จะถูกแทนที่ด้วยความจริงจากเซิร์ฟเวอร์ทันที (ถ้าถูกลบไปแล้วก็จะหายไปจาก
         // เครื่องด้วย ไม่ push กลับขึ้นไปฟื้นคืนชีพอีก) ส่วนแถวที่เพิ่งแก้ไขในเครื่องนี้เองหลังซิงค์ครั้งล่าสุด จะยังคงอยู่ตามปกติ
-        async function reconcileBeforeAutoSync() {
-            const url = getSheetsUrl();
-            if (!url || !navigator.onLine) return;
-            try {
-                const token = localStorage.getItem(SHEETS_TOKEN_KEY) || '';
-                const lastSyncAt = parseInt(localStorage.getItem(SHEETS_LASTSYNC_KEY) || '0', 10);
-                const res = await fetchWithRetry(url + '?action=load', { method: 'GET' });
-                const json = await res.json();
-                if (json.status === 'error' || !Array.isArray(json.records)) return;
-                packingData = normalizePackingFlags(applyMergedResultPreservingInFlightEdits(packingData, json.records, lastSyncAt, packingItemKey));
-                saveDataLocalOnly();
-                renderTable();
-            } catch(e) { /* reconcile ไม่สำเร็จก็ไม่เป็นไร ปล่อยให้ syncToGoogleSheets() ที่ตามมาทำงานตามปกติ */ }
-        }
-        async function reconcileBeforeAutoSyncSpec() {
-            const url = getSheetsUrl();
-            if (!url || !navigator.onLine) return;
-            try {
-                const token = localStorage.getItem(SHEETS_TOKEN_KEY) || '';
-                const lastSyncAt = parseInt(localStorage.getItem(SPEC_SHEETS_LASTSYNC_KEY) || '0', 10);
-                const pullStartedAt = Date.now();
-                const res = await fetchWithRetry(url + '?action=loadSpec', { method: 'GET' }, 2, STARTUP_PULL_TIMEOUT_MS);
-                const json = await res.json();
-                if (json.status === 'error' || !Array.isArray(json.records)) return;
-                const loadedSpecItems = json.records.map(sheetRecordToSpecItem);
-                CUSTOMER_SPEC_DATA = normalizeSpecFlags(applyMergedResultPreservingInFlightEdits(CUSTOMER_SPEC_DATA, loadedSpecItems, lastSyncAt, specItemKey));
-                saveSpecDataLocalOnly();
-                filterCustomerSpec();
-            } catch(e) { /* reconcile ไม่สำเร็จก็ไม่เป็นไร ปล่อยให้ syncSpecToGoogleSheets() ที่ตามมาทำงานตามปกติ */ }
-        }
-
         async function silentPullPacking() {
             const url = getSheetsUrl();
             if (!url || !navigator.onLine) { if (!navigator.onLine) { packingSyncState = SYNC_STATE.OFFLINE; renderSyncDiagnostics(); } return; }
