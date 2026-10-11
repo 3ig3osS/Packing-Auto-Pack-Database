@@ -1,10 +1,11 @@
-const CACHE_NAME='packing-auto-pack-v5-56-56-shell';
+const CACHE_NAME='packing-auto-pack-v5-56-57-shell';
+// v5.56.57: Tailwind/Font Awesome/Sarabun เป็นไฟล์ในแอปเองทั้งหมด (assets/) — ไม่พึ่ง CDN ภายนอกอีก จึงเปิดออฟไลน์ครั้งแรกได้สไตล์ครบ
 // v5.56.56: cache key เปลี่ยนเพื่อรับ shell รุ่นใหม่ — v5.56.52: cache key เปลี่ยนเพื่อรับ shell รุ่นใหม่ — v5.56.51: cache key เปลี่ยนเพื่อรับ shell รุ่นใหม่ — v5.56.50: cache key เปลี่ยนเพื่อรับ shell รุ่นใหม่ — v5.56.49: cache key เปลี่ยนเพื่อรับ shell รุ่นใหม่ — v5.56.48: cache key เปลี่ยนเพื่อรับ shell รุ่นใหม่ — v5.56.47: cache key เปลี่ยนเพื่อรับ shell รุ่นใหม่ — v5.56.46: cache key เปลี่ยนเพื่อรับ shell รุ่นใหม่ — v5.56.45: เปลี่ยน cache key (v5.56.44 ลืมเปลี่ยนชื่อ) — v5.56.44: เปลี่ยน cache key เพื่อบังคับ client รับ shell รุ่นใหม่และล้าง cache รุ่นเก่า
 const APP_SHELL='./index.html';
-const STATIC_ASSETS=[APP_SHELL,'./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png','./icons/apple-touch-icon.png','./packing-logo.png'];
+const STATIC_ASSETS=[APP_SHELL,'./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png','./icons/apple-touch-icon.png','./packing-logo.png','./assets/tailwind.css','./assets/fontawesome.css','./assets/sarabun.css','./assets/fonts/fa-solid-900.woff2','./assets/fonts/fa-regular-400.woff2','./assets/fonts/sarabun-thai-300-normal.woff2','./assets/fonts/sarabun-thai-400-normal.woff2','./assets/fonts/sarabun-thai-500-normal.woff2','./assets/fonts/sarabun-thai-600-normal.woff2','./assets/fonts/sarabun-thai-700-normal.woff2','./assets/fonts/sarabun-thai-800-normal.woff2','./assets/fonts/sarabun-latin-300-normal.woff2','./assets/fonts/sarabun-latin-400-normal.woff2','./assets/fonts/sarabun-latin-500-normal.woff2','./assets/fonts/sarabun-latin-600-normal.woff2','./assets/fonts/sarabun-latin-700-normal.woff2','./assets/fonts/sarabun-latin-800-normal.woff2'];
 // v5.56.39: ไฟล์ภายนอกที่หน้าตาแอปต้องใช้ — เก็บล่วงหน้าตอนติดตั้ง เพื่อให้เปิดออฟไลน์ครั้งแรกได้สไตล์ครบ
-const CDN_PRECACHE=['https://cdn.tailwindcss.com','https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css','https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap'];
-const CDN_HOSTS=new Set(['cdn.tailwindcss.com','cdnjs.cloudflare.com','fonts.googleapis.com','fonts.gstatic.com']);
+const CDN_PRECACHE=[]; // v5.56.57: ไม่ใช้ CDN แล้ว
+const CDN_HOSTS=new Set([]);
 // ถ้าเครือข่ายตอบช้าเกินเวลานี้ และมีหน้าแอปในแคชอยู่แล้ว ให้เปิดจากแคชทันที (เครือข่ายยังโหลดต่อเพื่ออัปเดตแคชรอบหน้า)
 const NAV_TIMEOUT_MS=3500;
 // ดึงไฟล์ CDN + ไฟล์ฟอนต์ที่ CSS อ้างถึง; ล้มเหลวได้ (ไม่ทำให้ติดตั้ง SW ไม่สำเร็จ) — fetch handler จะเก็บเพิ่มเองตอนใช้งานปกติ
