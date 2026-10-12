@@ -193,11 +193,11 @@ v5.56.0 BUGFIX BUILD
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Packing Auto Pack v5.56.58</title>
-    <meta name="description" content="Packing Auto Pack v5.56.58 — ระบบ Packing List และ Customer Spec">
+    <title>Packing Auto Pack v5.56.59</title>
+    <meta name="description" content="Packing Auto Pack v5.56.59 — ระบบ Packing List และ Customer Spec">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Packing Auto Pack">
-    <meta property="og:title" content="Packing Auto Pack v5.56.58">
+    <meta property="og:title" content="Packing Auto Pack v5.56.59">
     <meta property="og:description" content="Packing List และ Customer Spec — เปิดใช้งานผ่านลิงก์">
     <meta property="og:url" content="https://3ig3oss.github.io/Packing-Auto-Pack2026/">
     <meta property="og:image" content="https://3ig3oss.github.io/Packing-Auto-Pack2026/packing-logo.png">
@@ -212,8 +212,8 @@ v5.56.0 BUGFIX BUILD
     <link rel="manifest" href="./manifest.webmanifest">
     <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
-        <link rel="stylesheet" href="./assets/fontawesome.css">
-    <link rel="stylesheet" href="./assets/sarabun.css">
+        <link rel="stylesheet" href="./assets/fontawesome.css?v=5.56.59">
+    <link rel="stylesheet" href="./assets/sarabun.css?v=5.56.59">
     <style>
                 
         :root {
@@ -1160,7 +1160,7 @@ v5.56.0 BUGFIX BUILD
 </style>
 
     <!-- v5.56.57: Tailwind คอมไพล์ไว้ล่วงหน้า (แทน cdn.tailwindcss.com) วางท้าย head เพื่อให้ลำดับ CSS เหมือนเดิม -->
-    <link rel="stylesheet" href="./assets/tailwind.css">
+    <link rel="stylesheet" href="./assets/tailwind.css?v=5.56.59">
 </head>
 <body class="pb-16">
     <!-- Header ดีไซน์คลีน โมเดิร์น ไม่ทึบ -->
@@ -1349,7 +1349,7 @@ v5.56.0 BUGFIX BUILD
     </div>
 
     <!-- v5.56.58: Backup / Audit Modal -->
-    <div id="bkModal" class="fixed inset-0 z-[65] invisible-modal">
+    <div id="bkModal" class="fixed inset-0 invisible-modal" style="z-index:80;">
       <div class="absolute inset-0 bg-black/50 opacity-0 transition-opacity duration-300" id="bkOverlay" onclick="closeBackupModal()"></div>
       <div id="bkContent" class="absolute bottom-0 left-0 right-0 bg-white dark:bg-slate-900 rounded-t-3xl p-5 pb-8 modal-animate-up overflow-y-auto" style="max-height:90vh;">
         <div class="w-12 h-1 bg-slate-200 dark:bg-slate-700 rounded-full mx-auto mb-4"></div>
@@ -1656,7 +1656,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         let formDirty = false;
 
         // ─── App Version (แก้ที่นี่จุดเดียวเมื่ออัพเดท) ───────────────────────
-        const APP_VERSION = 'v5.56.58';
+        const APP_VERSION = 'v5.56.59';
 
         // v5.56.4: โหมดประหยัดพลัง — ผู้ใช้สลับเองได้ใน Settings, และเดาให้อัตโนมัติตอนเปิดแอปครั้งแรก
         // จากสัญญาณสเปกเครื่องเท่าที่เบราว์เซอร์ยอมบอก (ไม่รองรับทุกเครื่อง/ทุกเบราว์เซอร์ โดยเฉพาะ iOS Safari
@@ -1860,10 +1860,6 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         function handleHeaderSearchToggle() {
             if (currentMainTab === 'spec') toggleSpecSearch();
             else toggleSearch();
-        }
-
-        function specChip(on, label) {
-            return `<span class="spec-chip ${on ? 'spec-chip-on' : ''}" style="${on ? '' : 'opacity:0.25;'}">${on ? '✓' : '—'} ${label}</span>`;
         }
 
         // v5.56.0: จำสถานะพับ/กางของแต่ละการ์ด Customer Spec ในเซสชันนี้ (ตาม index ใน CUSTOMER_SPEC_DATA)
@@ -2108,10 +2104,6 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
             saveSpecData();
             filterCustomerSpec();
             showToast('ลบ Customer Spec แล้ว', '🗑️');
-        }
-
-        function specDetailRow(label, on, onText, offText) {
-            return `<div class="detail-row flex justify-between py-2.5"><span class="label-style">${label}</span><span class="font-semibold ${on ? '' : 'text-slate-400'}">${on ? (onText || 'ใส่') : (offText || 'ไม่ใส่')}</span></div>`;
         }
 
         // v5.56.56: ตัวช่วยคำนวณขนาดตัวอักษรให้ "ชื่อ: ค่า" พอดีหนึ่งบรรทัดในช่องครึ่งแถว
@@ -3187,8 +3179,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         const SHEETS_LASTSYNC_KEY = 'packing_sheets_last_sync';
         const SHEETS_TOKEN_KEY = 'packing_sheets_token';
         const SHEETS_LASTFAIL_KEY = 'packing_sheets_last_fail';
-        let publicRefreshTimer = null;
-
+        
         // ═══ v5.56.0: Edit Lock — ต้องใส่รหัส (ใช้รหัสแยกเฉพาะส่วนนี้) ก่อนถึงจะเพิ่ม/แก้/ลบข้อมูลได้ ═══
         // คนที่เปิดลิงค์เฉยๆ ดูข้อมูลล่าสุดได้ปกติ (v5.56.0 auto-sync ตอนเปิด) แต่แก้ไขอะไรไม่ได้จนกว่าจะปลดล็อก
         // ปลดล็อกแล้วจะจำไว้ในเครื่อง/เบราว์เซอร์นั้นๆ ไม่ต้องใส่รหัสซ้ำทุกครั้งที่เปิด
@@ -3272,13 +3263,6 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
                 if (stored && code.trim() === stored) { specUnlocked = true; sessionStorage.setItem(SPEC_UNLOCK_KEY, '1'); showToast('สัญญาณอ่อน — ปลดล็อก Customer Spec ด้วยรหัสที่เคยยืนยันบนเครื่องนี้', '🔓'); if (typeof onSuccess === 'function') onSuccess(); return; }
                 showToast('ตรวจสอบรหัสไม่สำเร็จ: ' + (e.message || 'เชื่อมต่อไม่ได้'), '⚠️');
             }
-        }
-
-        function lockSpecEditing() {
-            specUnlocked = false;
-            sessionStorage.removeItem(SPEC_UNLOCK_KEY);
-            localStorage.removeItem(SPEC_TOKEN_KEY);
-            showToast('ล็อก Customer Spec แล้ว', '🔒');
         }
 
         function requireEditUnlock(callback) {
@@ -3533,22 +3517,6 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
                 const remaining = current.filter(t => !sentSet.has(t.key + '|' + t.deletedAt));
                 localStorage.setItem(storageKey, JSON.stringify(remaining));
             } catch(e) {}
-        }
-
-        // v5.56.0: ซ่อน Web App URL / Token เป็นค่า masked (จุดๆ) โดยดีฟอลต์ เหมือน password — กันหลุดเวลาแคปหน้าจอ/ส่งให้คนอื่นดู
-        // กดไอคอนรูปตาเพื่อสลับดู/ซ่อนได้ตามต้องการ
-        function toggleFieldVisibility(inputId, btn) {
-            const input = document.getElementById(inputId);
-            const icon = btn.querySelector('i');
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                input.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
         }
 
         // (v5.56.0: ฟังก์ชัน saveSheetsUrl()/ช่องกรอก Token ใน Settings ถูกเอาออกไปแล้ว —
@@ -4142,25 +4110,6 @@ backupBeforeOverwrite('รีเซ็ตข้อมูล');
                 document.getElementById('confirmResetInput').value = '';
                 showToast('ล้างข้อมูล Packing List และ Customer Spec แล้ว (ย้อนกลับได้ที่ Settings) — ยังไม่ได้ซิงค์ขึ้น Google Sheets', '🔄');
             } else { alert('พิมพ์ RESET เพื่อยืนยัน'); }
-        }
-
-        function parseCSVLine(line) {
-            const result = [];
-            let cur = '', inQuotes = false;
-            for (let i = 0; i < line.length; i++) {
-                const ch = line[i];
-                if (inQuotes) {
-                    if (ch === '"' && line[i+1] === '"') { cur += '"'; i++; }
-                    else if (ch === '"') { inQuotes = false; }
-                    else { cur += ch; }
-                } else {
-                    if (ch === '"') { inQuotes = true; }
-                    else if (ch === ',') { result.push(cur); cur = ''; }
-                    else { cur += ch; }
-                }
-            }
-            result.push(cur);
-            return result;
         }
 
         function importFromCSV(event) {
