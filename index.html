@@ -193,11 +193,11 @@ v5.56.0 BUGFIX BUILD
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Packing Auto Pack v5.56.62</title>
-    <meta name="description" content="Packing Auto Pack v5.56.62 — ระบบ Packing List และ Customer Spec">
+    <title>Packing Auto Pack v5.56.63</title>
+    <meta name="description" content="Packing Auto Pack v5.56.63 — ระบบ Packing List และ Customer Spec">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Packing Auto Pack">
-    <meta property="og:title" content="Packing Auto Pack v5.56.62">
+    <meta property="og:title" content="Packing Auto Pack v5.56.63">
     <meta property="og:description" content="Packing List และ Customer Spec — เปิดใช้งานผ่านลิงก์">
     <meta property="og:url" content="https://3ig3oss.github.io/Packing-Auto-Pack2026/">
     <meta property="og:image" content="https://3ig3oss.github.io/Packing-Auto-Pack2026/packing-logo.png">
@@ -212,8 +212,8 @@ v5.56.0 BUGFIX BUILD
     <link rel="manifest" href="./manifest.webmanifest">
     <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
-        <link rel="stylesheet" href="./assets/fontawesome.css?v=5.56.62">
-    <link rel="stylesheet" href="./assets/sarabun.css?v=5.56.62">
+        <link rel="stylesheet" href="./assets/fontawesome.css?v=5.56.63">
+    <link rel="stylesheet" href="./assets/sarabun.css?v=5.56.63">
     <style>
                 
         :root {
@@ -643,6 +643,7 @@ v5.56.0 BUGFIX BUILD
         }
         .section-banner {
             position: relative;
+            isolation: isolate; /* v5.56.63: แผ่นเงาด้านล่างอยู่ใต้ตัวอักษร ไม่ทับตัวอักษร */
             overflow: hidden;
             display: block !important;
             width: fit-content !important;
@@ -654,7 +655,8 @@ v5.56.0 BUGFIX BUILD
             content:'';
             position:absolute;
             inset:0;
-            background: linear-gradient(90deg, rgba(255,255,255,0.22), rgba(255,255,255,0.05));
+            z-index:-1;
+            background: linear-gradient(90deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
             mix-blend-mode: screen;
             pointer-events:none;
         }
@@ -979,7 +981,7 @@ v5.56.0 BUGFIX BUILD
             color: #10002b;
             box-shadow: 0 0 12px rgba(0,240,255,0.45), 0 0 22px rgba(255,43,214,0.28);
         }
-        [data-theme="cyberpunk"] .bg-gradient-to-r.from-emerald-500.text-white {
+        [data-theme="cyberpunk"] .bg-gradient-to-r.from-emerald-800.text-white {
             background-image: linear-gradient(90deg, #00ff9c, #00e5ff);
             color: #00160f;
             box-shadow: 0 0 12px rgba(57,255,160,0.45);
@@ -1160,7 +1162,7 @@ v5.56.0 BUGFIX BUILD
 </style>
 
     <!-- v5.56.57: Tailwind คอมไพล์ไว้ล่วงหน้า (แทน cdn.tailwindcss.com) วางท้าย head เพื่อให้ลำดับ CSS เหมือนเดิม -->
-    <link rel="stylesheet" href="./assets/tailwind.css?v=5.56.62">
+    <link rel="stylesheet" href="./assets/tailwind.css?v=5.56.63">
 </head>
 <body class="pb-16">
     <!-- Header ดีไซน์คลีน โมเดิร์น ไม่ทึบ -->
@@ -1656,7 +1658,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         let formDirty = false;
 
         // ─── App Version (แก้ที่นี่จุดเดียวเมื่ออัพเดท) ───────────────────────
-        const APP_VERSION = 'v5.56.62';
+        const APP_VERSION = 'v5.56.63';
 
         // v5.56.4: โหมดประหยัดพลัง — ผู้ใช้สลับเองได้ใน Settings, และเดาให้อัตโนมัติตอนเปิดแอปครั้งแรก
         // จากสัญญาณสเปกเครื่องเท่าที่เบราว์เซอร์ยอมบอก (ไม่รองรับทุกเครื่อง/ทุกเบราว์เซอร์ โดยเฉพาะ iOS Safari
@@ -1912,7 +1914,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
                         </div>
                     </div>
                     <div class="${expanded ? '' : 'hidden'}">
-                        <div class="text-[11px] font-black text-white bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 px-3 py-1.5 rounded-xl uppercase tracking-wider mb-2 inline-block shadow-lg section-banner">
+                        <div class="text-[11px] font-black text-white bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-700 px-3 py-1.5 rounded-xl uppercase tracking-wider mb-2 inline-block shadow-lg section-banner">
                             <i class="fas fa-layer-group mr-1"></i> Packing Details / รายละเอียดสเปกบรรจุ
                         </div>
                         <div class="grid grid-cols-2 gap-1.5 mb-3">
@@ -1927,7 +1929,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
                             <div class="spec-badge spec-badge-fit col-span-2"><span class="spec-lbl">CUST P/N:</span><span class="font-bold text-indigo-500 dark:text-indigo-400">${item.cp ? highlightSpec(item.cp, hlQuery) : '-'}</span></div>
                         </div>
                         <div class="pt-2 border-t border-slate-100 dark:border-slate-800">
-                            <div class="text-[11px] font-black text-white bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 px-3 py-1.5 rounded-xl uppercase tracking-wider mb-2 inline-block shadow-lg section-banner">
+                            <div class="text-[11px] font-black text-white bg-gradient-to-r from-emerald-800 via-teal-700 to-cyan-700 px-3 py-1.5 rounded-xl uppercase tracking-wider mb-2 inline-block shadow-lg section-banner">
                                 <i class="fas fa-tags mr-1"></i> บาร์โค้ด / สติ๊กเกอร์ที่ต้องติดหน้า Pack
                             </div>
                             <div class="spec-badge bc-box w-full"><div class="bc-row">
@@ -1940,7 +1942,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
                             </div></div>
                         </div>
                         ${item.note ? `<div class="pt-2 mt-2 border-t border-slate-100 dark:border-slate-800">
-                            <div class="text-[10px] font-black text-white bg-gradient-to-r from-rose-600 via-red-600 to-orange-500 px-2.5 py-1 rounded-lg uppercase tracking-wider mb-1.5 inline-block shadow section-banner">
+                            <div class="text-[10px] font-black text-white bg-gradient-to-r from-rose-600 via-red-700 to-orange-700 px-2.5 py-1 rounded-lg uppercase tracking-wider mb-1.5 inline-block shadow section-banner">
                                 <i class="fas fa-triangle-exclamation mr-1"></i> Special Requirement
                             </div>
                             <div class="p-2.5 bg-red-50 dark:bg-red-950/20 rounded-xl border border-red-100 dark:border-red-900/40 text-red-600 dark:text-red-400 text-xs font-semibold leading-relaxed text-center">${highlightSpec(item.note, hlQuery)}</div>
@@ -2136,7 +2138,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
                     <div class="detail-row flex justify-between py-2.5 items-center"><span class="label-style">Total Qty</span><span class="text-xl font-extrabold text-indigo-600 dark:text-indigo-400">${item.tt || 0}</span></div>
                     <div class="detail-row flex justify-between py-2.5"><span class="label-style">DC Format</span><span class="font-bold text-emerald-500">${!item.dc || item.dc === '-' ? '-' : escapeHtml(item.dc)}</span></div>
                 </div>
-                <div class="text-[11px] font-black text-white bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 px-3 py-1.5 rounded-xl uppercase tracking-wider mb-2 inline-block shadow-lg section-banner">
+                <div class="text-[11px] font-black text-white bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-700 px-3 py-1.5 rounded-xl uppercase tracking-wider mb-2 inline-block shadow-lg section-banner">
                     <i class="fas fa-layer-group mr-1"></i> Packing Details / รายละเอียดสเปกบรรจุ
                 </div>
                 <div class="grid grid-cols-2 gap-1.5 mb-4">
@@ -2149,7 +2151,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
                     ${specBadge(item.pv, 'Plastic Vacuum Bag')}
                     ${specBadge(!!item.su, 'Surface', item.su ? escapeHtml(item.su) : '-', true)}
                 </div>
-                <div class="text-[11px] font-black text-white bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 px-3 py-1.5 rounded-xl uppercase tracking-wider mb-2 inline-block shadow-lg section-banner">
+                <div class="text-[11px] font-black text-white bg-gradient-to-r from-emerald-800 via-teal-700 to-cyan-700 px-3 py-1.5 rounded-xl uppercase tracking-wider mb-2 inline-block shadow-lg section-banner">
                     <i class="fas fa-tags mr-1"></i> บาร์โค้ด / สติ๊กเกอร์ที่ต้องติดหน้า Pack
                 </div>
                 <div class="spec-badge bc-box w-full mb-4"><div class="bc-row">
@@ -2160,7 +2162,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
                     ${hasColorSticker ? `<span class="status-pill ${getColorStickerPillStyle(item.cs)}"><span class="color-dot mr-1.5" style="background-color:${colorHex}"></span>สติ๊กเกอร์สี: ${escapeHtml(item.cs)}</span>` : ''}
                     ${!(item.rh || item.bc || item.ee || item.fw || hasColorSticker) ? `<span class="text-slate-400 text-xs">ไม่มีรายการที่ต้องติด</span>` : ''}
                 </div></div>
-                <div class="text-[11px] font-black text-white bg-gradient-to-r from-rose-600 via-red-600 to-orange-500 px-3 py-1.5 rounded-xl uppercase tracking-wider mb-2 inline-block shadow-lg section-banner">
+                <div class="text-[11px] font-black text-white bg-gradient-to-r from-rose-600 via-red-700 to-orange-700 px-3 py-1.5 rounded-xl uppercase tracking-wider mb-2 inline-block shadow-lg section-banner">
                     <i class="fas fa-triangle-exclamation mr-1"></i> Special Requirement
                 </div>
                 <div class="mt-0 p-3 bg-red-50 dark:bg-red-950/20 rounded-xl border border-red-100 dark:border-red-900/40">
@@ -2421,7 +2423,7 @@ function oneLineText(s) { return String(s == null ? '' : s).replace(/\s*[\r\n]+\
 function packingNoteSectionHtml(kind, icon, title, bodyHtml) {
     const theme = kind === 'note'
         ? { banner: 'from-amber-300 via-amber-400 to-yellow-400 text-amber-950', box: 'bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-900/40 text-amber-900 dark:text-amber-200' }
-        : { banner: 'from-rose-600 via-red-600 to-orange-500 text-white', box: 'bg-red-50 dark:bg-red-950/20 border-red-100 dark:border-red-900/40 text-red-700 dark:text-red-300' };
+        : { banner: 'from-rose-600 via-red-700 to-orange-700 text-white', box: 'bg-red-50 dark:bg-red-950/20 border-red-100 dark:border-red-900/40 text-red-700 dark:text-red-300' };
     return `<div class="pt-2 mt-2 border-t border-slate-100 dark:border-slate-800"><div class="text-[10px] font-black bg-gradient-to-r px-2.5 py-1 rounded-lg uppercase tracking-wider mb-1.5 inline-block shadow section-banner ${theme.banner}"><i class="fas ${icon} mr-1"></i> ${title}</div><div class="p-2.5 rounded-xl border text-xs font-semibold leading-relaxed text-center break-words ${theme.box}">${bodyHtml}</div></div>`;
 }
 function packingNotesHtml(item, hlQuery) {
@@ -2677,7 +2679,7 @@ const FIELD_ORDER = ["Part No", "Customer", "CustPN", "Unit Qty", "QtyPack", "Qu
                         </div>
                     </div>
                     <div data-card-body class="${isExpanded ? '' : 'hidden'}">
-                        <div class="text-[11px] font-black text-white bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 px-3 py-1.5 rounded-xl uppercase tracking-wider mb-2 mt-3 inline-block shadow-lg section-banner">
+                        <div class="text-[11px] font-black text-white bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-700 px-3 py-1.5 rounded-xl uppercase tracking-wider mb-2 mt-3 inline-block shadow-lg section-banner">
                             <i class="fas fa-layer-group mr-1"></i> Packing Details / รายละเอียดสเปกบรรจุ
                         </div>
                         
@@ -2694,7 +2696,7 @@ const FIELD_ORDER = ["Part No", "Customer", "CustPN", "Unit Qty", "QtyPack", "Qu
 
                         ${hasActiveStatus ? `
                         <div class="pt-2 border-t border-slate-100 dark:border-slate-800">
-                            <div class="text-[11px] font-black text-white bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 px-3 py-1.5 rounded-xl uppercase tracking-wider mb-2 inline-block shadow-lg section-banner">
+                            <div class="text-[11px] font-black text-white bg-gradient-to-r from-emerald-800 via-teal-700 to-cyan-700 px-3 py-1.5 rounded-xl uppercase tracking-wider mb-2 inline-block shadow-lg section-banner">
                                 <i class="fas fa-tags mr-1"></i> บาร์โค้ด / สติ๊กเกอร์ที่ต้องติดหน้า Pack
                             </div>
                             <div class="spec-badge bc-box w-full"><div class="bc-row">
